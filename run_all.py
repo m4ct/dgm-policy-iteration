@@ -3,7 +3,7 @@ run_all.py — Run all exercises sequentially.
 
 Usage:
     python run_all.py          # run everything
-    python run_all.py 1 3 4    # run only exercises 1.1, 1.2, 3, 4
+    python run_all.py 1.1 1.2 3 4    # run a selected subset
 """
 
 import sys

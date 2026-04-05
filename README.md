@@ -1,68 +1,72 @@
-# SCDAA_local_version
+# SCDAA DGM Policy Iteration Coursework
 
-Refactored SCDAA coursework code with clear separation per exercise and shared reusable core components.
+This repository contains a Python implementation for the 2026 SCDAA coursework on stochastic control. It combines analytical LQR methods, Monte Carlo validation, supervised learning, Deep Galerkin Method (DGM) experiments, and policy iteration for the HJB equation.
 
-## Repository structure
+## Project structure
 
-- `scdaa_core/`
-  - `lqr.py`: shared analytical LQR solver and sample generators.
-  - `networks.py`: reusable `NetDGM` model.
-  - `plotting.py`: helper for exercise-specific plot output folders.
-- `exercises/`
-  - `ex1_1.py`: Riccati and value-function visualisation.
-  - `ex1_2.py`: Monte Carlo and timestep convergence checks.
-  - `ex2_1.py`: value-function supervised learning.
-  - `ex2_2.py`: optimal-control supervised learning.
-- `run_all_exercises.py`: runs all exercises in sequence.
-- `optimiser_comparison_ex2_1.py`: optimiser comparison for Exercise 2.1.
+- `config.py` - shared problem parameters, device selection, and plot settings.
+- `lqr_solver.py` - analytical Riccati-based LQR solver, value function, and optimal control.
+- `monte_carlo.py` - Monte Carlo estimators for the optimal-control and constant-control settings.
+- `networks.py` - neural network architectures used across the exercises.
+- `exercise_1_1.py` - Riccati solve and analytical value-function plots.
+- `exercise_1_2.py` - Monte Carlo convergence checks against the analytical solution.
+- `exercise_2_1.py` - supervised learning of the value function with a DGM network.
+- `exercise_2_2.py` - supervised learning of the optimal control with a feed-forward network.
+- `exercise_3.py` - DGM solution of the HJB PDE for a fixed constant control.
+- `exercise_4.py` - policy iteration for the HJB equation using learned value and policy networks.
+- `run_all.py` - runs all exercises, or a selected subset, from the command line.
+- `plots/` - generated PNG figures written by the exercise scripts.
+- `SCDAA-CW-2026.pdf` - coursework brief.
+- `requirements.txt` - Python dependencies.
 
-## Plot output layout
-
-All generated plots are now saved under:
-
-- `plots/exercise_1_1/`
-- `plots/exercise_1_2/`
-- `plots/exercise_2_1/`
-- `plots/exercise_2_2/`
-
-## Usage
-
-Install dependencies:
+## Installation
 
 ```bash
 pip install -r requirements.txt
 ```
 
+The scripts select CUDA automatically when available and otherwise run on CPU.
+
+## Running the code
+
 Run a single exercise:
 
 ```bash
-python -m exercises.ex2_1
+python exercise_1_1.py
 ```
 
 Run all exercises:
 
 ```bash
-python run_all_exercises.py
+python run_all.py
 ```
 
-Run optimiser comparison:
+Run a subset of exercises:
 
 ```bash
-python optimiser_comparison_ex2_1.py
+python run_all.py 1.1 1.2 3 4
 ```
 
-## Cleanup
+Valid exercise labels are `1.1`, `1.2`, `2.1`, `2.2`, `3`, and `4`.
 
-Legacy notebook files and root-level generated PNG artifacts were removed.
-Use the exercise scripts to regenerate outputs into `plots/<exercise_name>/`.
+## Plot outputs
 
-## CUDA verification
+All plots are saved directly in `plots/`. The current repository includes outputs for:
 
-To confirm GPU usage end-to-end:
+- `exercise_1_1_riccati.png`
+- `exercise_1_1_value_function.png`
+- `exercise_1_2_timestep_convergence.png`
+- `exercise_1_2_mc_convergence.png`
+- `exercise_2_1_loss.png`
+- `exercise_2_1_surfaces.png`
+- `exercise_2_2_loss.png`
+- `exercise_2_2_vector_fields.png`
+- `exercise_2_2_component_error.png`
+- `exercise_3_loss.png`
+- `exercise_3_error_vs_mc.png`
+- `exercise_4_policy_iteration_loss.png`
+- `exercise_4_value_comparison.png`
 
-```bash
-python check_cuda.py
-```
+## Notes
 
-For training scripts (`exercises/ex2_1.py`, `exercises/ex2_2.py`, and `optimiser_comparison_ex2_1.py`), startup logs now print selected device and CUDA properties.
-They also run one-time assertions that model parameters, batches, and predictions are all on the selected device.
+Exercises 2.1 to 4 involve neural network training and can take substantially longer to run than Exercises 1.1 and 1.2.
