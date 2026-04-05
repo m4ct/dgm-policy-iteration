@@ -14,6 +14,7 @@ This repository contains a Python implementation for the 2026 SCDAA coursework o
 - `exercise_2_2.py` - supervised learning of the optimal control with a feed-forward network.
 - `exercise_3.py` - DGM solution of the HJB PDE for a fixed constant control.
 - `exercise_4.py` - policy iteration for the HJB equation using learned value and policy networks.
+- `check_cuda.py` - quick PyTorch/CUDA environment check.
 - `run_all.py` - runs all exercises, or a selected subset, from the command line.
 - `plots/` - generated PNG figures written by the exercise scripts.
 - `SCDAA-CW-2026.pdf` - coursework brief.
@@ -48,6 +49,12 @@ python run_all.py 1.1 1.2 3 4
 ```
 
 Valid exercise labels are `1.1`, `1.2`, `2.1`, `2.2`, `3`, and `4`.
+
+Check CUDA availability:
+
+```bash
+python check_cuda.py
+```
 
 ## Plot outputs
 
