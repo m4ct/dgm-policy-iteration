@@ -23,6 +23,9 @@ Coursework repository for stochastic control and HJB/LQR experiments.
 pip install -r requirements.txt
 ```
 
+If you have a CUDA-capable GPU and a GPU-enabled PyTorch build installed,
+the scripts will use it automatically. Otherwise they fall back to CPU.
+
 ## Usage
 
 Run a single exercise:
